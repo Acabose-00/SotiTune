@@ -1,0 +1,7 @@
+{
+  "name": "afinador",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
