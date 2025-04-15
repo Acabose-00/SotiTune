@@ -68,3 +68,15 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#ignore esta app
+node_modules/
+platforms/
+plugins/
+www/
+android/
+ios/
+.env
+.DS_Store
+.idea/
+.vscode/
