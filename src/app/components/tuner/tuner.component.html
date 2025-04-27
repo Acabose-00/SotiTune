@@ -1,0 +1,42 @@
+<ion-content class="ion-padding">
+
+  <!-- Sección de Medidor -->
+  <div class="meter-container">
+    <!-- Aquí irá el medidor visual tipo aguja (luego lo armamos) -->
+    <div class="needle-panel">
+      <!-- Dibujaremos los nombres de notas y una aguja animada -->
+      <!-- Ejemplo básico de estructura -->
+    </div>
+    <div class="hz-display">
+      {{ frequency.toFixed(1) }} Hz
+    </div>
+  </div>
+
+  <!-- Sección de Nota Actual -->
+  <div class="note-container">
+    <div class="note-label">{{ currentNote }}</div>
+    <div class="tune-indicator" [ngClass]="{ 'in-tune': isInTune(), 'out-of-tune': !isInTune() }"></div>
+  </div>
+
+  <!-- Sección de Cabeza de Guitarra -->
+  <div class="headstock-container">
+    <!-- Aquí pondremos una imagen simple o SVG del clavijero con etiquetas -->
+  </div>
+
+</ion-content>
+
+
+<!-- medidor prototipo 1 -->
+<!-- <div class="tuner-container" *ngIf="isMicrophoneActive; else noMic">
+  <h1 class="frequency">{{ frequency.toFixed(2) }} Hz</h1>
+  <div class="tuning-status" [ngClass]="{ 'in-tune': isInTune(), 'out-of-tune': !isInTune() }">
+    <span *ngIf="isInTune(); else adjust">🎯 Afinado</span>
+    <ng-template #adjust>
+      <span>🔧 Ajustar cuerda</span>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #noMic>
+  <p>🚫 Micrófono no disponible. Revisa los permisos.</p>
+</ng-template> -->

@@ -10,4 +10,12 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'menu-instrumentos',
+    loadComponent: () => import('./menu-instrumentos/menu-instrumentos.page').then( m => m.MenuInstrumentosPage)
+  },
+  {
+    path: 'medidor-afinacion',
+    loadComponent: () => import('./medidor-afinacion/medidor-afinacion.page').then( m => m.MedidorAfinacionPage)
+  },
 ];
