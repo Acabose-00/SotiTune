@@ -1,0 +1,29 @@
+.clavijero-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+  }
+  
+  .clavijero-image {
+    width: 100%;
+    display: block;
+  }
+  
+  .note {
+    position: absolute;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: color 0.3s;
+  }
+  
+  .note.selected {
+    color: #4caf50; /* verde */
+  }
+  
+  .note.detected {
+    color: #2196f3; /* azul */
+  }

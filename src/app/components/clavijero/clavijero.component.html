@@ -1,0 +1,12 @@
+<div class="clavijero-container">
+  <img [src]="clavijeroImage" alt="Clavijero" class="clavijero-image">
+
+  <div *ngFor="let string of strings; let i = index"
+       class="note"
+       [ngStyle]="getPositionStyle(i)"
+       (click)="selectString(i)"
+       [class.selected]="selectedStringIndex === i"
+       [class.detected]="detectedStringIndex === i">
+    {{ string.note }}
+  </div>
+</div>

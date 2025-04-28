@@ -1,29 +1,51 @@
-<ion-content class="ion-padding">
+<!-- aguja medidor -->
+<ion-content class="ion-padding" color="dark">
 
-  <!-- Sección de Medidor -->
   <div class="meter-container">
-    <!-- Aquí irá el medidor visual tipo aguja (luego lo armamos) -->
+    <div class="meter">
+      <div class="needle" [style.transform]="'rotate(' + needleAngle + 'deg)'"></div>
+      <div class="center-dot"></div>
+      <div class="mark minus">-</div>
+      <div class="mark plus">+</div>
+    </div>
+
+    <div class="hz-display">
+      {{ signalLost ? 'Sin señal' : (frequency.toFixed(1) + ' Hz') }}
+    </div>
+
+    <!-- Nota detectada (opcional, puedes ocultarla si quieres) -->
+    <div class="note-display">{{ currentNote }}</div>
+
+    <!-- Barra de afinación -->
+    <div class="tune-status" [ngClass]="{ 'in-tune': isInTune(), 'out-of-tune': !isInTune() }"></div>
+
+  </div>
+
+</ion-content>
+<!-- <ion-content class="ion-padding">
+
+  <div class="meter-container">
+
     <div class="needle-panel">
-      <!-- Dibujaremos los nombres de notas y una aguja animada -->
-      <!-- Ejemplo básico de estructura -->
+
+
     </div>
     <div class="hz-display">
       {{ frequency.toFixed(1) }} Hz
     </div>
   </div>
 
-  <!-- Sección de Nota Actual -->
+  Sección de Nota Actual
   <div class="note-container">
     <div class="note-label">{{ currentNote }}</div>
     <div class="tune-indicator" [ngClass]="{ 'in-tune': isInTune(), 'out-of-tune': !isInTune() }"></div>
   </div>
-
-  <!-- Sección de Cabeza de Guitarra -->
+ Sección de Cabeza de Guitarra
   <div class="headstock-container">
-    <!-- Aquí pondremos una imagen simple o SVG del clavijero con etiquetas -->
+ Aquí pondremos una imagen simple o SVG del clavijero con etiquetas
   </div>
 
-</ion-content>
+</ion-content> -->
 
 
 <!-- medidor prototipo 1 -->

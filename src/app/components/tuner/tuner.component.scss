@@ -41,3 +41,94 @@
     margin-top: 20px;
     text-align: center;
   }
+
+  //scss aguja
+  ion-content {
+    --background: #1a1a1a;
+    color: white;
+    text-align: center;
+  }
+  
+  .meter-container {
+    display: flex;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 250px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  .meter {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: #333;
+
+    border-radius: 12%; /* cuadrado redondeado */
+    margin-bottom: 20px;
+  }
+  
+  .needle {
+    position: absolute;
+    width: 2px;
+    height: 90px;
+    background: white;
+    top: 10px;
+    left: 49.4%;
+    transform-origin: bottom center;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+  }
+  
+  .center-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    top: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .mark {
+    position: absolute;
+    top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .minus {
+    left: 20px;
+  }
+  
+  .plus {
+    right: 20px;
+  }
+  
+  .hz-display {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .note-display {
+    background-color: rgb(231, 233, 235);
+    width: 50px;
+    border-radius: 20px;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .tune-status {
+    width: 80px;
+    height: 10px;
+    border-radius: 10px;
+    background: red;
+    margin-top: 5px;
+  }
+  
+  .tune-status.in-tune {
+    background: #00ff00;
+  }
+  

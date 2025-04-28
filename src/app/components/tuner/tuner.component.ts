@@ -11,6 +11,10 @@ import { instrumentTunings, StringTuning } from '../data/frecuencia-instrumentos
   imports: [CommonModule, IonicModule]
 })
 export class TunerComponent implements OnInit, OnDestroy {
+  // variables de aguja medidor
+  needleAngle: number = 0;
+  signalLost: boolean = false;
+  private lastDetectionTime: number = Date.now();
   // Variables para el microfono
   audioContext!: AudioContext;
   analyser!: AnalyserNode;
@@ -85,10 +89,21 @@ export class TunerComponent implements OnInit, OnDestroy {
   updateFrequency() {
     this.analyser.getFloatTimeDomainData(this.dataArray);
     this.frequency = this.autoCorrelate(this.dataArray, this.audioContext.sampleRate) || 0;
-
+    const now = Date.now();
     if (this.frequency > 0) {
       this.currentNote = this.detectClosestNote(this.frequency);
       this.targetFrequency = this.currentTuning.find(t => t.note === this.currentNote)?.frequency || 0;
+      // logica para la aguja
+      const diff = this.frequency - this.targetFrequency;
+      this.needleAngle = Math.max(Math.min(diff * 5, 45), -45);
+      this.lastDetectionTime = now;
+      this.signalLost = false;
+    } else {
+      // Si pasan más de 3 segundos sin detectar nada, muestra Sin señal
+      if (now - this.lastDetectionTime > 3000) {
+        this.signalLost = true;
+      }
+      this.needleAngle = 0; // Regresa aguja al centro
     }
 
     this.rafId = requestAnimationFrame(() => this.updateFrequency());
