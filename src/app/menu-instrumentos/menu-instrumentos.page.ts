@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter } from '@ionic/angular/standalone';
-import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonIcon,
-  IonMenuButton,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star } from 'ionicons/icons';
+import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list } from 'ionicons/icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-instrumentos',
@@ -18,17 +12,23 @@ import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle,
   styleUrls: ['./menu-instrumentos.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
-            IonBackButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonTitle, IonToolbar]
+            IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton]
 })
 export class MenuInstrumentosPage implements OnInit {
 
-  constructor() { 
-    addIcons({ create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star });
+  constructor(private router: Router) { 
+    addIcons({ create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list });
   }
 
   ngOnInit() {
   }
 
+  goToLogin() {
+    this.router.navigate(['/home']);
+  }
+
+  goToInstruments() {
+    this.router.navigate(['/menu-instrumentos']);
+  }
+
 }
-
-

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Menu-Instrumentos</ion-title>
+    <ion-title class="ion-text-center">Seleccione un Instrumento</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,18 +15,25 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons class="center-buttons">
-      <ion-button>
-        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      <ion-button (click)="goToLogin()">
+        <div class="icon-text-wrapper">
+          <ion-icon name="person-circle"></ion-icon>
+          <span>Iniciar Sesión</span>
+        </div>
       </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+
+      <ion-button (click)="goToInstruments()">
+        <div class="icon-text-wrapper">
+          <ion-icon name="list"></ion-icon>
+          <span>Instrumentos</span>
+        </div>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+
+
+
 
 
 

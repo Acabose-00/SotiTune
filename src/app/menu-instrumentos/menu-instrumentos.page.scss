@@ -1,10 +1,20 @@
+.icon-text-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Ahora sí, aquí funciona el espacio */
+}
+
 .center-buttons {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    
-    ion-button {
-      margin: 0 30px;
-    }
-  }
-  
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+
+
+.center-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+}
