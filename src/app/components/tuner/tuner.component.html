@@ -10,11 +10,11 @@
     </div>
 
     <div class="hz-display">
-      {{ signalLost ? 'Sin señal' : (frequency.toFixed(1) + ' Hz') }}
+      {{ signalLost ? 'Esperando nota' : (frequency.toFixed(1) + ' Hz') }}
     </div>
 
     <!-- Nota detectada (opcional, puedes ocultarla si quieres) -->
-    <div class="note-display">{{ currentNote }}</div>
+    <div class="note-display">{{ signalLost ? '--' : currentNote }}</div>
 
     <!-- Barra de afinación -->
     <div class="tune-status" [ngClass]="{ 'in-tune': isInTune(), 'out-of-tune': !isInTune() }"></div>
