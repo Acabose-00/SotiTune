@@ -27,7 +27,7 @@ export class HomePage {
     } else {
       this.errorMessage = '';
       // Aquí podrías validar las credenciales si quieres más adelante
-      this.router.navigate(['/menu-instrumentos']);
+      this.router.navigate(['/menu-usuario']);
     }
   }
 }

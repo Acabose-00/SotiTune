@@ -7,14 +7,14 @@ import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle,
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-menu-instrumentos',
-  templateUrl: './menu-instrumentos.page.html',
-  styleUrls: ['./menu-instrumentos.page.scss'],
+  selector: 'app-menu-usuario',
+  templateUrl: './menu-usuario.page.html',
+  styleUrls: ['./menu-usuario.page.scss'],
   standalone: true,
   imports: [IonTabButton, IonTab, IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
             IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs]
 })
-export class MenuInstrumentosPage implements OnInit {
+export class MenuUsuarioPage implements OnInit {
 
   constructor(private router: Router) { 
     addIcons({musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,ellipsisVertical,helpCircle,search,star,speedometer,mic});
