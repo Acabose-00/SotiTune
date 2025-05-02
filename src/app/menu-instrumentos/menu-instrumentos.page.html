@@ -10,30 +10,32 @@
       <ion-title size="large">Seleccione un Instrumento</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <div class="contenedor-principal">
+      <div class="fila-contenedor">
+        <span><ion-icon name="musical-note-outline"></ion-icon><br>Guitarra</span>
+        <span><ion-icon name="flash-outline"></ion-icon><br>Guitarra Eléctrica</span>
+        <span><ion-icon name="trending-up-outline"></ion-icon><br>Bajo</span>
+        <span><ion-icon name="happy-outline"></ion-icon><br>Ukelele</span>
+        <span><ion-icon name="heart-outline"></ion-icon><br>Violin</span>
+        <span><ion-icon name="key-outline"></ion-icon><br>Piano</span>
+      </div>
+    </div>
+  </ion-content>
+  
+  
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons class="center-buttons">
-      <ion-button (click)="goToLogin()">
-        <div class="icon-text-wrapper">
-          <ion-icon name="person-circle"></ion-icon>
-          <span>Iniciar Sesión</span>
-        </div>
-      </ion-button>
-
-      <ion-button (click)="goToInstruments()">
-        <div class="icon-text-wrapper">
-          <ion-icon name="list"></ion-icon>
-          <span>Instrumentos</span>
-        </div>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
-
-
-
-
-
-
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="login" (click)="goToLogin()">
+      <ion-icon name="person-circle"></ion-icon>
+      Iniciar Sesión
+    </ion-tab-button>
+    <ion-tab-button tab="instrumentos" (click)="goToInstruments()">
+      <ion-icon name="list"></ion-icon>
+      Instrumentos
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
