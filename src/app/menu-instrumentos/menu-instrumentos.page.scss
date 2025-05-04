@@ -38,3 +38,14 @@ ion-icon {
   color: white; /* o el color que quieras */
 }
 
+.icon-text-wrapper {
+  display: flex;
+  flex-direction: column; /* NUEVO: icono arriba, texto abajo */
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-text-wrapper img {
+  width: 64px;
+  height: 64px;
+}
