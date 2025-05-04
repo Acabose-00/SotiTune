@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonButton, IonB
 import { addIcons } from 'ionicons';
 import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list, musicalNoteOutline, flashOutline, trendingUpOutline, happyOutline, heartOutline, keyOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
+import { ClavijeroComponent } from "../components/clavijero/clavijero.component";
 
 @Component({
   selector: 'app-menu-instrumentos',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu-instrumentos.page.scss'],
   standalone: true,
   imports: [IonTabButton, IonTab, IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
-            IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs]
+    IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs, ClavijeroComponent]
 })
 export class MenuInstrumentosPage implements OnInit {
 
