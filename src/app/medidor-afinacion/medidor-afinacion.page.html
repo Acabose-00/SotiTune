@@ -1,23 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>medidor-afinacion</ion-title>
+    <ion-title>{{ selectedInstrument | titlecase }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">medidor-afinacion</ion-title>
+      <ion-title size="large">{{ selectedInstrument | titlecase }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+
+    <app-tuner></app-tuner>
     <app-clavijero></app-clavijero>
-    <app-tuner>
-
-    </app-tuner>
-
-  </ion-content>
-
-
+    <app-footer></app-footer>
 </ion-content>

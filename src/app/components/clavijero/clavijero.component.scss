@@ -1,8 +1,17 @@
-.clavijero-container {
+.meter-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px; 
+}
+
+.clavijero-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  gap: 12px;
-  margin: 10px 0 0 0; /* reducida la separación para estar más arriba */
+  align-items: center;
+  gap: 50px; 
+  margin: 25% 0 0 20%;
 }
 
 .note-button {
@@ -12,7 +21,7 @@
   border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   color: white;
   font-weight: bold;
   font-size: 14px;

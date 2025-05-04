@@ -1,8 +1,12 @@
 <!-- aguja medidor -->
-<ion-content class="ion-padding" color="dark">
+<div class="tuner-wrapper" color="dark">
 
   <div class="meter-container">
     <div class="meter">
+      <div class="arc-indicator">
+        <div class="barra"></div>
+        <div class="vacio"></div>
+      </div>
       <div class="needle" [style.transform]="'rotate(' + needleAngle + 'deg)'"></div>
       <div class="center-dot"></div>
       <div class="mark minus">-</div>
@@ -21,7 +25,7 @@
 
   </div>
 
-</ion-content>
+</div>
 <!-- <ion-content class="ion-padding">
 
   <div class="meter-container">
