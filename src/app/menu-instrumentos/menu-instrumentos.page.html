@@ -4,27 +4,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Seleccione un Instrumento</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content [fullscreen]="true">
-    <div class="contenedor-principal">
-      <div class="fila-contenedor">
-        <span class="icon-text-wrapper"><img src="assets/img/guitarra.png" width="24" height="24"> Guitarra</span>
-        <span class="icon-text-wrapper"><img src="assets/img/guitarra-electrica.png" width="24" height="24"> Guitarra Eléctrica</span>
-        <span class="icon-text-wrapper"><img src="assets/img/bajo.png" width="24" height="24"> Bajo</span>
-        <span class="icon-text-wrapper"><img src="assets/img/ukelele.png" width="24" height="24"> Ukelele</span>
-        <span class="icon-text-wrapper"><img src="assets/img/violin.png" width="24" height="24"> Violin</span>
-        <span class="icon-text-wrapper"><img src="assets/img/piano.png" width="24" height="24"> Piano</span>
-      </div>
+<ion-fab class="contenedor-principal">
+<div class="fila-contenedor">
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/guitarra.png" width="24" height="24"><span>Guitarra</span></div>
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/guitarra-electrica.png" width="24" height="24"><span>Guitarra Eléctrica</span></div>
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/bajo.png" width="64" height="64"><span>Bajo</span></div>
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/ukelele.png" width="24" height="24"><span>Ukelele</span></div>
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/violin.png" width="24" height="24"><span>Violin</span></div>
+    <div class="icon-text-wrapper" (click)="goToAfinacion()"><img src="assets/img/piano.png" width="24" height="24"><span>Piano</span></div>
     </div>
-  </ion-content>
-  
-  
+</ion-fab>
 
 <ion-tabs>
   <ion-tab-bar slot="bottom">
