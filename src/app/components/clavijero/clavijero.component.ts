@@ -1,45 +1,37 @@
-
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { instrumentTunings, StringTuning } from '../data/frecuencia-instrumentos';
 
 @Component({
-  selector: 'app-clavijero',
-  templateUrl: './clavijero.component.html',
-  styleUrls: ['./clavijero.component.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule]
+selector: 'app-clavijero',
+templateUrl: './clavijero.component.html',
+styleUrls: ['./clavijero.component.scss'],
+standalone: true,
+imports: [CommonModule, IonicModule]
 })
-export class ClavijeroComponent {
-  @Input() instrument: string = 'bajo'; // Instrumento por defecto
-  @Input() selectedStringIndex: number | null = null; // Cuerda seleccionada manualmente
-  @Input() detectedStringIndex: number | null = null; // Cuerda detectada automáticamente
+export class ClavijeroComponent implements OnInit, OnChanges {
+@Input() selectedInstrument: string = 'bajo';
+@Input() selectedStringIndex: number | null = null;
+@Output() stringSelected = new EventEmitter<number>();
 
-  @Output() stringSelected = new EventEmitter<number>();
+strings: StringTuning[] = [];
 
-  get strings(): StringTuning[] {
-    return instrumentTunings[this.instrument] || [];
-  }
+ngOnInit(): void {
+this.updateStrings();
+}
 
-  selectString(index: number) {
-    this.stringSelected.emit(index);
-  }
+ngOnChanges(changes: SimpleChanges): void {
+if (changes['selectedInstrument']) {
+this.updateStrings();
+}
+}
 
-  get clavijeroImage(): string {
-    return `/assets/clavijas/${this.instrument}.png`;
-  }
-  
-  getPositionStyle(index: number): any {
-    const positions = [
-      { top: '20%', left: '30%' }, // ejemplo para clavija 1
-      { top: '30%', left: '20%' },
-      { top: '40%', left: '10%' },
-      { top: '50%', left: '15%' },
-      // debes ajustar según tu imagen
-    ];
-    return positions[index] || {};
-  }
-  
+updateStrings() {
+this.strings = instrumentTunings[this.selectedInstrument] || [];
+}
 
+selectString(index: number) {
+this.stringSelected.emit(index);
+}
 }

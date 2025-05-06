@@ -29,11 +29,11 @@
 
 .fila-contenedor {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 20px 40px;
-  text-align: center;
-  cursor: pointer;
-  margin: 0 auto; /* <-- ESTO centra el grid */
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
+  gap: 16px 24px; /* vertical y horizontal */
+  padding: 16px; /* espacio hacia los bordes del contenedor */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 ion-icon {
@@ -44,22 +44,24 @@ ion-icon {
 .icon-text-wrapper {
   display: flex;
   flex-direction: column;
+  text-align: center;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  width: 100%;
-  height: 100%;
   justify-content: center;
-  background-color: rgba(0,0,0,0.1); /* temporal para ver la zona */
-  padding: 10px; /* expande la zona clickeable */
-  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1); /* temporal para ver la zona */
+  padding: 12px;
+  border-radius: 12px;
+  height: 100%;
+  width: 100%;
+  transition: background-color 0.2s ease;
 }
 
-
-
+.icon-text-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
 .icon-text-wrapper img {
   width: 64px;
   height: 64px;
-  cursor: pointer;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { instrumentTunings, StringTuning } from '../data/frecuencia-instrumentos';
+import { Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-tuner',
@@ -10,7 +11,7 @@ import { instrumentTunings, StringTuning } from '../data/frecuencia-instrumentos
   standalone: true,
   imports: [CommonModule, IonicModule]
 })
-export class TunerComponent implements OnInit, OnDestroy {
+export class TunerComponent implements OnInit, OnDestroy, OnChanges {
   // variables de aguja medidor
   needleAngle: number = 0;
   signalLost: boolean = false;
@@ -28,14 +29,15 @@ export class TunerComponent implements OnInit, OnDestroy {
   isMicrophoneActive: boolean = false;
 
   // Variables para la afinacion segun instrumento
-  selectedInstrument: string = 'bajo';
+  @Input() selectedInstrument: string = 'bajo';
   currentTuning: StringTuning[] = instrumentTunings['bajo'];
 
   constructor() {}
 
-  selectInstrument(instrument: string) {
-    this.selectedInstrument = instrument;
-    this.currentTuning = instrumentTunings[instrument];
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedInstrument']) {
+      this.currentTuning = instrumentTunings[this.selectedInstrument] || [];
+    }
   }
 
   detectClosestNote(frequency: number): string {

@@ -32,8 +32,10 @@ export class MenuInstrumentosPage implements OnInit {
     this.router.navigate(['/menu-instrumentos']);
   }
 
-  goToAfinacion() {
-    this.router.navigate(['/medidor-afinacion']);
+  goToAfinacion(instrumento: string) {
+    this.router.navigate(['/medidor-afinacion'], {
+      queryParams: { instrumento: instrumento }
+    });
   }
 
 }
