@@ -1,10 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">
-      Inicio Sesión
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -13,18 +7,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating"></ion-label>
-        <ion-input [(ngModel)]="correo" type="email" placeholder="Ingrese su correo"></ion-input>
-      </ion-item>
+  <div class="app-icon-container">
+    <img src="assets/img/icon_prov.png" alt="App Icon" class="app-icon">
+  </div>
 
-      <ion-item>
-        <ion-label position="floating"></ion-label>
-        <ion-input [(ngModel)]="contrasena" type="password" placeholder="Ingrese su contraseña"></ion-input>
-      </ion-item>
-    </ion-list>
+  <div id="container">
+    <ion-label class="input-label">Correo</ion-label>
+<ion-item lines="none" class="input-item">
+  <ion-input [(ngModel)]="correo" type="email" placeholder="Ingrese su correo"></ion-input>
+</ion-item>
+
+<ion-label class="input-label">Contraseña</ion-label>
+<ion-item lines="none" class="input-item">
+  <ion-input [(ngModel)]="contrasena" type="password" placeholder="Ingrese su contraseña"></ion-input>
+</ion-item>
+
+    
 
     <!-- Mensaje de error lindo -->
     <ion-text color="danger" *ngIf="errorMessage">
@@ -32,13 +30,14 @@
     </ion-text>
 
     <div class="button-container">
-      <ion-button expand="full" shape="round" color="primary" (click)="iniciarSesion()">
+      <ion-button expand="full" shape="round" class="btn-sesion" (click)="iniciarSesion()">
         Iniciar Sesión
       </ion-button>
-
-      <ion-button expand="full" shape="round" fill="outline" (click)="goToPage()">
+      
+      <ion-button expand="full" shape="round" class="btn-invitado" (click)="goToPage()">
         Iniciar como Invitado
       </ion-button>
+      
     </div>
   </div>
 </ion-content>
