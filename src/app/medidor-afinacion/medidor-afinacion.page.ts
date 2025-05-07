@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';  // ⬅️ Agregado Router
 
 import { TunerComponent } from '../components/tuner/tuner.component';
 import { ClavijeroComponent } from '../components/clavijero/clavijero.component';
@@ -25,7 +25,10 @@ import { FooterComponent } from '../plantillas/footer/footer.component';
 export class MedidorAfinacionPage implements OnInit {
   selectedInstrument: string = 'bajo';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router  // ⬅️ Inyectado Router
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -33,5 +36,9 @@ export class MedidorAfinacionPage implements OnInit {
         this.selectedInstrument = params['instrumento'];
       }
     });
+  }
+
+  goToInstruments() {
+    this.router.navigate(['/menu-instrumentos']);
   }
 }

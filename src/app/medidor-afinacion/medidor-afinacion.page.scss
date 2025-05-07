@@ -6,3 +6,19 @@ ion-content {
     --background: #1a1a1a;
   }
   
+  ion-toolbar {
+    display: flex;
+    justify-content: center; /* Centra los elementos */
+  }
+  
+  ion-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+  
+  
+  
