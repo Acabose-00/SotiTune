@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonList, IonText } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +14,10 @@ import { Router } from '@angular/router';
 export class HomePage {
   correo: string = '';
   contrasena: string = '';
-  errorMessage: string = ''; // Mensaje de error
+  errorMessage: string = '';
+  SesionActiva: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   goToPage() {
     this.router.navigate(['/menu-instrumentos']);
@@ -26,8 +28,8 @@ export class HomePage {
       this.errorMessage = 'Por favor, complete ambos campos.';
     } else {
       this.errorMessage = '';
-      // Aquí podrías validar las credenciales si quieres más adelante
-      this.router.navigate(['/menu-usuario']);
+      this.auth.login(this.correo, this.contrasena);
+      this.router.navigate(['/menu-instrumentos']);
     }
   }
 }

@@ -12,6 +12,7 @@ import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle,
   styleUrls: ['./footer.component.scss'],
   imports: [IonTabButton, IonTab, IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
     IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs],
+  standalone: true,
 })
 export class FooterComponent  implements OnInit {
 

@@ -6,6 +6,9 @@ import { addIcons } from 'ionicons';
 import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list, musicalNoteOutline, flashOutline, trendingUpOutline, happyOutline, heartOutline, keyOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { ClavijeroComponent } from "../components/clavijero/clavijero.component";
+import { AuthService } from '../services/auth.service';
+import { FooterComponent } from '../plantillas/footer/footer.component';
+import { FooterUserComponent } from '../plantillas/footer-user/footer-user.component';
 
 @Component({
   selector: 'app-menu-instrumentos',
@@ -13,12 +16,19 @@ import { ClavijeroComponent } from "../components/clavijero/clavijero.component"
   styleUrls: ['./menu-instrumentos.page.scss'],
   standalone: true,
   imports: [IonFabButton, IonFab, IonTabButton, IonTab, IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
-    IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs, ClavijeroComponent]
+    IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs, ClavijeroComponent, FooterComponent, FooterUserComponent]
 })
 export class MenuInstrumentosPage implements OnInit {
 
-  constructor(private router: Router) { 
-    addIcons({musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,ellipsisVertical,helpCircle,search,star,speedometer,mic});
+  sesionActiva: boolean = false;
+
+  constructor(private router: Router, private auth: AuthService) { 
+    addIcons({
+      musicalNoteOutline,flashOutline,trendingUpOutline,
+      happyOutline,heartOutline,keyOutline,personCircle,
+      list,create,ellipsisHorizontal,ellipsisVertical,
+      helpCircle,search,star,speedometer,mic});
+    this.sesionActiva = this.auth.isSesionActiva();
   }
 
   ngOnInit() {

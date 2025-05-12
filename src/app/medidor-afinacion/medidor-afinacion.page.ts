@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';  // ⬅️ Agregado Router
+import { ActivatedRoute, Router } from '@angular/router'; 
 
 import { TunerComponent } from '../components/tuner/tuner.component';
 import { ClavijeroComponent } from '../components/clavijero/clavijero.component';
@@ -27,7 +27,7 @@ export class MedidorAfinacionPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router  // ⬅️ Inyectado Router
+    private router: Router
   ) {}
 
   ngOnInit() {
