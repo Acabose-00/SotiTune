@@ -32,18 +32,23 @@ export class MenuInstrumentosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.sesionActiva = this.auth.isSesionActiva();
   }
 
+  ionViewWillEnter() {
+  this.sesionActiva = this.auth.isSesionActiva();
+}
+
   goToLogin() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home'], {replaceUrl:true});
   }
 
   goToInstruments() {
-    this.router.navigate(['/menu-instrumentos']);
+    this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
 
   goToAfinacion(instrumento: string) {
-    this.router.navigate(['/medidor-afinacion'], {
+    this.router.navigate(['/medidor-afinacion'],  {
       queryParams: { instrumento: instrumento }
     });
   }

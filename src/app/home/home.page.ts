@@ -20,7 +20,7 @@ export class HomePage {
   constructor(private router: Router, private auth: AuthService) {}
 
   goToPage() {
-    this.router.navigate(['/menu-instrumentos']);
+    this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
 
   iniciarSesion() {
@@ -29,7 +29,7 @@ export class HomePage {
     } else {
       this.errorMessage = '';
       this.auth.login(this.correo, this.contrasena);
-      this.router.navigate(['/menu-instrumentos']);
+      this.router.navigate(['menu-instrumentos'], {replaceUrl:true});
     }
   }
 }

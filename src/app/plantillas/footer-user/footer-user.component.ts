@@ -33,11 +33,11 @@ export class FooterUserComponent  implements OnInit {
   ngOnInit() {}
 
   goToLogin() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home'], {replaceUrl:true});
     this.auth.logout();
   }
 
   goToInstruments() {
-    this.router.navigate(['/menu-instrumentos']);
+    this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
 }
