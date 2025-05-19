@@ -17,7 +17,8 @@ export const routes: Routes = [
   {
     path: 'medidor-afinacion',
     loadComponent: () => import('./medidor-afinacion/medidor-afinacion.page').then( m => m.MedidorAfinacionPage)
-  },  {
+  },
+  {
     path: 'menu-usuario',
     loadComponent: () => import('./menu-usuario/menu-usuario.page').then( m => m.MenuUsuarioPage)
   },

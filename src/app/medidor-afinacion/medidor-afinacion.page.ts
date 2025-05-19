@@ -39,6 +39,6 @@ export class MedidorAfinacionPage implements OnInit {
   }
 
   goToInstruments() {
-    this.router.navigate(['/menu-instrumentos']);
+    this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
 }
