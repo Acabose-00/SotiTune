@@ -2,7 +2,7 @@ export interface StringTuning {
   note: string;
   frequency: number;
   }
-  
+  // el numero al lado del nombre del instrumento indica el numero de cuerdas. no sea weon
   export const instrumentTunings: { [instrumentName: string]: StringTuning[] } = {
   guitarra: [
   { note: 'E2', frequency: 82.41 },
@@ -36,6 +36,13 @@ export interface StringTuning {
   { note: 'A1', frequency: 55.00 },
   { note: 'D2', frequency: 73.42 },
   { note: 'G2', frequency: 98.00 },
+  ],
+  bajo5c: [
+    { note: 'B0', frequency: 30.87 },  
+    { note: 'E1', frequency: 41.20 },
+    { note: 'A1', frequency: 55.00 },
+    { note: 'D2', frequency: 73.42 },
+    { note: 'G2', frequency: 98.00 },
   ],
   contrabajo: [
   { note: 'E1', frequency: 41.20 },
