@@ -23,6 +23,10 @@ export class HomePage {
     this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
 
+    goToRegister() {
+    this.router.navigate(['/register'], {replaceUrl:true});
+  }
+
   iniciarSesion() {
     if (!this.correo || !this.contrasena) {
       this.errorMessage = 'Por favor, complete ambos campos.';

@@ -47,4 +47,18 @@ export class SupabaseService {
       .select('*')
       .eq('usuario_id', usuarioId);
   }
+
+  async createUserProfile(id: string, nombre: string, correo: string, contra: string) {
+  // Inserta el perfil con el id que te entrega auth
+  return this.supabase.from('Users').insert([
+    {
+      id,         // id que viene del usuario autenticado
+      nombre,
+      correo,
+      contra,
+      date_creation: new Date().toISOString()
+    }
+  ]);
+}
+
 }
