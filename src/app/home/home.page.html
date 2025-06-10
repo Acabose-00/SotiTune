@@ -20,18 +20,17 @@
   <ion-input [(ngModel)]="contrasena" type="password" placeholder="Ingrese su contraseña"></ion-input>
 </ion-item>
 
-    
-
-    <!-- Mensaje de error lindo -->
-    <ion-text color="danger" *ngIf="errorMessage">
-      <p class="error-message">{{ errorMessage }}</p>
+<p class="error-message" >
+    <ion-text color="danger">
+    {{errorMessage}}
     </ion-text>
+</p>
 
     <div class="button-container">
       <ion-button expand="full" shape="round" class="btn-sesion" (click)="iniciarSesion()">
         Iniciar Sesión
       </ion-button>
-      
+
       <ion-button expand="full" shape="round" class="btn-invitado" (click)="goToPage()">
         Iniciar como Invitado
       </ion-button>

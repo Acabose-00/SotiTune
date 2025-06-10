@@ -24,7 +24,7 @@ export class HomePage {
   }
 
     goToRegister() {
-    this.router.navigate(['/register'], {replaceUrl:true});
+    this.router.navigate(['register'], {replaceUrl:true});
   }
 
   iniciarSesion() {
@@ -36,4 +36,5 @@ export class HomePage {
       this.router.navigate(['menu-instrumentos'], {replaceUrl:true});
     }
   }
+
 }

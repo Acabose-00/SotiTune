@@ -31,6 +31,7 @@ export class RegisterPage {
 
       if (error) throw error;
 
+      console.log(data.user)
       if (data.user) {
         const authUserId = data.user.id;
 

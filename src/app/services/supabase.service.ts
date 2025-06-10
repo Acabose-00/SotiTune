@@ -13,52 +13,23 @@ export class SupabaseService {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseAnonKey);
   }
 
-  // 📥 Registro de usuario
   async signUp(email: string, password: string) {
-    return this.supabase.auth.signUp({ email, password });
+    return await this.supabase.auth.signUp({
+      email,
+      password,
+    });
   }
 
-  // 🔐 Inicio de sesión
-  async signIn(email: string, password: string) {
-    return this.supabase.auth.signInWithPassword({ email, password });
+  async createUserProfile(userId: string, nombre: string, correo: string, contra: string) {
+    return await this.supabase
+      .from('usuarios')
+      .insert([{
+        id: userId,
+        correo,
+        contra,
+        nombre,
+        fecha_creacion: new Date().toISOString(),
+      }]);
   }
-
-  // 🚪 Cerrar sesión
-  async signOut() {
-    return this.supabase.auth.signOut();
-  }
-
-  // 👤 Obtener usuario actual
-  async getUser() {
-    return this.supabase.auth.getUser();
-  }
-
-  // 🎼 Subir partitura
-  async uploadPartitura(file: File, path: string) {
-    return this.supabase.storage
-      .from('partituras')
-      .upload(path, file);
-  }
-
-  // 📦 Obtener partituras de un usuario
-  async getPartituras(usuarioId: string) {
-    return this.supabase
-      .from('partituras')
-      .select('*')
-      .eq('usuario_id', usuarioId);
-  }
-
-  async createUserProfile(id: string, nombre: string, correo: string, contra: string) {
-  // Inserta el perfil con el id que te entrega auth
-  return this.supabase.from('Users').insert([
-    {
-      id,         // id que viene del usuario autenticado
-      nombre,
-      correo,
-      contra,
-      date_creation: new Date().toISOString()
-    }
-  ]);
-}
 
 }
