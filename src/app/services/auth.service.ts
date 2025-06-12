@@ -9,7 +9,6 @@ export class AuthService {
   private sesionActiva = false;
 
   constructor() {
-
     this.sesionActiva = localStorage.getItem('SesionActiva') === 'true';
   }
 
@@ -20,12 +19,13 @@ export class AuthService {
     this.sesionActiva = true;
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.sesionActiva = false;
+  isLogged(): boolean {
+    return sessionStorage.getItem('sesion') !== null;
   }
 
-  isSesionActiva(): boolean {
-    return this.sesionActiva;
+  getLoggedUser(): any | null {
+  const session = sessionStorage.getItem('sesion');
+  return session ? JSON.parse(session) : null;
   }
+
 }
