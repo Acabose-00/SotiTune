@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTab, IonTabBar, IonTabs, IonTabButton } from '@ionic/angular/standalone';
 import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list, musicalNoteOutline, flashOutline, trendingUpOutline, happyOutline, heartOutline, keyOutline } from 'ionicons/icons';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-footer',
@@ -16,7 +17,8 @@ import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle,
 })
 export class FooterComponent  implements OnInit {
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private supabase: SupabaseService) { 
+  console.log("FOOTER")
   addIcons({musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,ellipsisVertical,helpCircle,search,star,speedometer,mic});
 }
 

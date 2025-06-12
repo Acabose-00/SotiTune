@@ -10,6 +10,7 @@ import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle,
          star, speedometer, mic, list, musicalNoteOutline, flashOutline, trendingUpOutline,
          happyOutline, heartOutline, keyOutline } from 'ionicons/icons';
 import { AuthService } from '../../services/auth.service';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-footer-user',
@@ -23,18 +24,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class FooterUserComponent  implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService) { 
-    addIcons({
-      musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,
-      heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,
-      ellipsisVertical,helpCircle,search,star,speedometer,mic});
-  }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private supabase: SupabaseService) {
+      console.log("FOOTER USER")
+      addIcons({
+        musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,
+        heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,
+        ellipsisVertical,helpCircle,search,star,speedometer,mic});
+      }
 
   ngOnInit() {}
 
   goToLogin() {
+    this.supabase.logout();
     this.router.navigate(['/home'], {replaceUrl:true});
-    this.auth.logout();
   }
 
   goToInstruments() {

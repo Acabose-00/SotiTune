@@ -3,6 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonIt
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomePage {
   errorMessage: string = '';
   SesionActiva: boolean = false;
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(private router: Router, private auth: AuthService, private supabase: SupabaseService) {}
 
   goToPage() {
     this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
@@ -27,13 +28,18 @@ export class HomePage {
     this.router.navigate(['register'], {replaceUrl:true});
   }
 
-  iniciarSesion() {
+  async iniciarSesion() {
     if (!this.correo || !this.contrasena) {
       this.errorMessage = 'Por favor, complete ambos campos.';
     } else {
       this.errorMessage = '';
-      this.auth.login(this.correo, this.contrasena);
-      this.router.navigate(['menu-instrumentos'], {replaceUrl:true});
+      const loginCorrecto = await this.supabase.login(this.correo, this.contrasena);
+      if (loginCorrecto) {
+        console.log("AQUI SI ESTAMOS")
+        this.router.navigate(['menu-instrumentos'], {replaceUrl:true});
+      } else  { 
+        this.errorMessage = 'Usuario o contraseña incorrectos'
+      }
     }
   }
 

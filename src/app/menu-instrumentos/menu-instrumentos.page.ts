@@ -19,7 +19,6 @@ import { FooterUserComponent } from '../plantillas/footer-user/footer-user.compo
     IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs, ClavijeroComponent, FooterComponent, FooterUserComponent]
 })
 export class MenuInstrumentosPage implements OnInit {
-
   sesionActiva: boolean = false;
 
   constructor(private router: Router, private auth: AuthService) { 
@@ -28,15 +27,15 @@ export class MenuInstrumentosPage implements OnInit {
       happyOutline,heartOutline,keyOutline,personCircle,
       list,create,ellipsisHorizontal,ellipsisVertical,
       helpCircle,search,star,speedometer,mic});
-    this.sesionActiva = this.auth.isSesionActiva();
+    this.sesionActiva = this.auth.isLogged();
   }
 
   ngOnInit() {
-    this.sesionActiva = this.auth.isSesionActiva();
+    this.sesionActiva = this.auth.isLogged();
   }
 
   ionViewWillEnter() {
-  this.sesionActiva = this.auth.isSesionActiva();
+  this.sesionActiva = this.auth.isLogged();
 }
 
   goToLogin() {

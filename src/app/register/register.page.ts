@@ -18,6 +18,7 @@ export class RegisterPage {
   nombre: string = '';
   correo: string = '';
   contra: string = '';
+  // errorMessage: string == '';
 
   // El servicio se inyecta en el constructor con minúscula para la propiedad
   constructor(
@@ -26,6 +27,11 @@ export class RegisterPage {
   ) {}
 
   async registrar() {
+    if (this.correo == '' || this.contra == ''  || this.nombre == '' ) {
+      // Poner mensaje de error aqui
+      // this.errorMessage = 'Campos vacios, por favor rellene todo';
+      console.log("Campos vacios")
+    }
     try {
       const { data, error } = await this.supabaseService.signUp(this.correo, this.contra);
 
@@ -39,8 +45,11 @@ export class RegisterPage {
 
         if (perfil.error) throw perfil.error;
 
-        alert('Registro exitoso');
-        this.router.navigate(['/home'], { replaceUrl: true });
+        const isLogged = await this.supabaseService.signUp(this.correo, this.contra)
+
+        console.log(isLogged)
+        console.log("PORSIA", Boolean(isLogged))
+        // this.router.navigate(['/menu-instrumentos'], { replaceUrl: true });
       }
     } catch (error: any) {
       console.error('Error en registro:', error);
