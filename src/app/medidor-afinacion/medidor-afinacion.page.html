@@ -12,5 +12,10 @@
 
   <app-tuner [selectedInstrument]="selectedInstrument"></app-tuner>
   <app-clavijero [selectedInstrument]="selectedInstrument"></app-clavijero>
-  <app-footer></app-footer>
+  <ng-container *ngIf="sesionActiva; else invitadoFooter">
+    <app-footer-user></app-footer-user>
+  </ng-container>
+  <ng-template #invitadoFooter>
+    <app-footer></app-footer>
+  </ng-template>
 </ion-content>
