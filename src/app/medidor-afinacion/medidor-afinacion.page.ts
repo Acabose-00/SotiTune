@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TunerComponent } from '../components/tuner/tuner.component';
 import { ClavijeroComponent } from '../components/clavijero/clavijero.component';
 import { FooterComponent } from '../plantillas/footer/footer.component';
+import { FooterUserComponent } from '../plantillas/footer-user/footer-user.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-medidor-afinacion',
@@ -19,18 +21,24 @@ import { FooterComponent } from '../plantillas/footer/footer.component';
     IonicModule,
     TunerComponent,
     ClavijeroComponent,
-    FooterComponent
+    FooterComponent,
+    FooterUserComponent,
   ]
 })
 export class MedidorAfinacionPage implements OnInit {
   selectedInstrument: string = 'bajo';
+  sesionActiva: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private auth: AuthService
+  ) {
+    this.sesionActiva = this.auth.isLogged();
+  }
 
   ngOnInit() {
+    this.sesionActiva = this.auth.isLogged();
     this.route.queryParams.subscribe(params => {
       if (params['instrumento']) {
         this.selectedInstrument = params['instrumento'];

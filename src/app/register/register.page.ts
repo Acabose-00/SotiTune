@@ -5,55 +5,65 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SupabaseService } from '../services/supabase.service';
 
-
- // instala npm install @solana/wallet-standard-features SI TE ARROJA ERROR SOLANA_WALLET_STANDARD_FEATURES
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule],  // ¡NO se pone el servicio aquí!
+  imports: [CommonModule, FormsModule, IonicModule],
 })
 export class RegisterPage {
   nombre: string = '';
   correo: string = '';
   contra: string = '';
-  // errorMessage: string == '';
+  errorMessage: string = '';
 
-  // El servicio se inyecta en el constructor con minúscula para la propiedad
   constructor(
     private router: Router,
-    private supabaseService: SupabaseService
+    private supabaseService: SupabaseService,
   ) {}
 
   async registrar() {
-    if (this.correo == '' || this.contra == ''  || this.nombre == '' ) {
-      // Poner mensaje de error aqui
-      // this.errorMessage = 'Campos vacios, por favor rellene todo';
-      console.log("Campos vacios")
+    this.errorMessage = '';
+
+    // Validación básica de campos vacíos
+    if (!this.nombre.trim() || !this.correo.trim() || !this.contra.trim()) {
+      this.errorMessage = 'Rellena todos los campos';
+      return;
     }
+
     try {
-      const { data, error } = await this.supabaseService.signUp(this.correo, this.contra);
+      const { data: existingUser, error: userError } = await this.supabaseService.getUserByEmail(this.correo);
+      if (userError) throw userError;
 
-      if (error) throw error;
-
-      console.log(data.user)
-      if (data.user) {
-        const authUserId = data.user.id;
-
-        const perfil = await this.supabaseService.createUserProfile(authUserId, this.nombre, this.correo, this.contra);
-
-        if (perfil.error) throw perfil.error;
-
-        const isLogged = await this.supabaseService.signUp(this.correo, this.contra)
-
-        console.log(isLogged)
-        console.log("PORSIA", Boolean(isLogged))
-        // this.router.navigate(['/menu-instrumentos'], { replaceUrl: true });
+      if (existingUser && existingUser.length > 0) {
+        this.errorMessage = 'Este correo ya está registrado';
+        return;
       }
+
+      const perfil = await this.supabaseService.createUserProfile(
+        this.nombre,
+        this.correo,
+        this.contra
+      );
+
+      if (perfil.error) throw perfil.error;
+
+
+      const isLogged = await this.supabaseService.login(this.correo, this.contra);
+      if (isLogged) {
+        this.router.navigate(['/menu-instrumentos'], { replaceUrl: true });
+      } else {
+        throw new Error('No se pudo iniciar sesión automáticamente');
+      }
+
     } catch (error: any) {
-      console.error('Error en registro:', error);
-      alert('Error al registrar: ' + (error.message || error));
+      this.errorMessage = 'Error al registrar: ' + (error.message || error);
     }
   }
+
+  goToLogin() {
+    this.router.navigate(['/home'], { replaceUrl: true });
+  }
+
 }

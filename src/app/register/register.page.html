@@ -1,27 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" class="ion-text-center">Registro</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="registrar()">
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
-    </ion-item>
+  <div class="app-icon-container">
+    <img src="assets/img/icon_prov.png" alt="App Icon" class="app-icon">
+  </div>
 
-    <ion-item>
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input [(ngModel)]="correo" name="correo" type="email" required></ion-input>
-    </ion-item>
+  <div id="container">
+    <form (ngSubmit)="registrar()" style="width: 100%;">
+      
+      <ion-label class="input-label">Nombre</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input [(ngModel)]="nombre" name="nombre" required placeholder="Ingrese su nombre"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input [(ngModel)]="contra" name="contra" type="password" required></ion-input>
-    </ion-item>
+      <ion-label class="input-label">Correo</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input [(ngModel)]="correo" name="correo" type="email" required placeholder="Ingrese su correo"></ion-input>
+      </ion-item>
 
-    <ion-button expand="full" type="submit">Registrarse</ion-button>
-  </form>
+      <ion-label class="input-label">Contraseña</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input [(ngModel)]="contra" name="contra" type="password" required placeholder="Cree una contraseña"></ion-input>
+      </ion-item>
+
+      <div class="button-container">
+        <ion-button expand="full" shape="round" class="btn-sesion" type="submit">
+          Registrarse
+        </ion-button>
+
+        <ion-button expand="full" shape="round" class="btn-invitado" (click)="goToLogin()">
+          Ya tengo cuenta
+        </ion-button>
+      </div>
+    </form>
+    <p class="error-message" >
+    <ion-text color="danger">
+    {{errorMessage}}
+    </ion-text>
+</p>
+  </div>
 </ion-content>
-

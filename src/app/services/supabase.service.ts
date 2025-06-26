@@ -13,18 +13,10 @@ export class SupabaseService {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseAnonKey);
   }
 
-  async signUp(email: string, password: string) {
-    return await this.supabase.auth.signUp({
-      email,
-      password,
-    });
-  }
-
-  async createUserProfile(userId: string, nombre: string, correo: string, contra: string) {
+  async createUserProfile(nombre: string, correo: string, contra: string) {
     return await this.supabase
       .from('usuarios')
       .insert([{
-        id: userId,
         correo,
         contra,
         nombre,
@@ -34,8 +26,6 @@ export class SupabaseService {
 
   async login(email: string, password: string): Promise<boolean> {
     try {
-      alert("INTENTO DE BALATREARSE");
-
       const { data, error } = await this.supabase
         .from('usuarios')
         .select('*')
@@ -44,8 +34,7 @@ export class SupabaseService {
         .single();
 
       if (error || !data) {
-        console.log("USUARIO NO ENCONTRADO");
-        return false;
+        throw error
       }
 
       sessionStorage.setItem('sesion', JSON.stringify(data));
@@ -60,13 +49,19 @@ export class SupabaseService {
 
     async logout(): Promise<void> {
       try {
-        alert("SE ACABO LA FAMILIA BALATRO")
         await this.supabase.auth.signOut();
         sessionStorage.removeItem('sesion');
       } catch (error) {
-        console.error('Error al cerrar sesión:', error);
         throw error;
       }
   }
+
+  async getUserByEmail(correo: string) {
+      return await this.supabase
+        .from('usuarios')
+        .select('*')
+        .eq('correo', correo)
+        .limit(1);
+    }
 
 }
