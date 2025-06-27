@@ -45,4 +45,8 @@ export class FooterUserComponent  implements OnInit {
   goToInstruments() {
     this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
   }
+
+  goToPartituras() {
+    this.router.navigate(['/partituras'], {replaceUrl:true});
+  }
 }
