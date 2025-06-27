@@ -1,13 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>subir-partitura</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">subir-partitura</ion-title>
+      <ion-title size="large" class="ion-text-center">Subir Partitura</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="app-icon-container">
+    <img src="assets/img/logo_sotitune.png" alt="App Icon" class="app-icon">
+  </div>
+
+  <div id="container">
+    <form [formGroup]="formulario" (ngSubmit)="subirPartitura()" style="width: 100%;">
+
+      <ion-label class="input-label">Nombre de la canción</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input formControlName="titulo" type="text" placeholder="Ingrese el título"></ion-input>
+      </ion-item>
+
+      <ion-label class="input-label">Instrumento</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input formControlName="instrumento" type="text" placeholder="Ingrese el instrumento"></ion-input>
+      </ion-item>
+
+      <ion-label class="input-label">Género musical</ion-label>
+      <ion-item lines="none" class="input-item">
+        <ion-input formControlName="genero" type="text" placeholder="Ingrese el género"></ion-input>
+      </ion-item>
+
+      <ion-label class="input-label">Archivo PDF o XML</ion-label>
+      <ion-item lines="none" class="input-item file-input-item">
+        <input type="file" (change)="onFileSelected($event)" accept=".pdf,.xml" class="custom-file">
+      </ion-item>
+
+      <div class="button-container">
+        <ion-button expand="full" shape="round" class="btn-sesion" type="submit" [disabled]="!formulario.valid || !archivoSeleccionado">
+          Subir Partitura
+        </ion-button>
+
+        <ion-button expand="full" shape="round" class="btn-invitado" (click)="goToInstruments()">
+          Cancelar
+        </ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>
