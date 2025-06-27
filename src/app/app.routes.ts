@@ -29,6 +29,10 @@ export const routes: Routes = [
     path: 'partituras',
     loadComponent: () => import('./partituras/partituras.page').then( m => m.PartiturasPage)
   },
+  {
+    path: 'subir-partitura',
+    loadComponent: () => import('./subir-partitura/subir-partitura.page').then( m => m.SubirPartituraPage)
+  },
 
 
 
