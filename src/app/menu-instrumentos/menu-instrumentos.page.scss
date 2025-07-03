@@ -1,45 +1,19 @@
-.icon-text-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px; /* Ahora sí, aquí funciona el espacio */
-}
-
-.center-buttons {
-  justify-content: center;
-  display: flex;
-  width: 100%;
-}
-
-
-
-.center-title {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-}
-
 .contenedor-principal {
   display: flex;
   justify-content: center;
-  align-items: start;
-  height: 60%;
+  width: 100%;
   margin-top: 40px;
 }
 
-
 .fila-contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
-  gap: 16px 24px; /* vertical y horizontal */
-  padding: 16px; /* espacio hacia los bordes del contenedor */
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas */
+  gap: 12px; /* menos separación para que entren */
+  padding: 24px 12px; /* reduce margen lateral */
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
-}
-
-ion-icon {
-  font-size: 24px;
-  color: white; /* o el color que quieras */
+  justify-items: center; /* centra los elementos dentro de su columna */
 }
 
 .icon-text-wrapper {
@@ -47,14 +21,16 @@ ion-icon {
   flex-direction: column;
   text-align: center;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.1); /* temporal para ver la zona */
-  padding: 12px;
+  gap: 6px;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 13px; 
+  padding: 8px; 
   border-radius: 12px;
-  height: 100%;
-  width: 100%;
+  width: 100%; 
+  max-width: 100px; 
+  height: 100px;
+  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
@@ -63,6 +39,6 @@ ion-icon {
 }
 
 .icon-text-wrapper img {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
 }

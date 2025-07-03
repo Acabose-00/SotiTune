@@ -71,4 +71,12 @@ export class SupabaseService {
     const sesion = sessionStorage.getItem('sesion');
     return sesion ? JSON.parse(sesion) : null;
   }
+
+  async getPartituras() {
+    const { data, error } = await this.supabase
+      .from('partituras')
+      .select('*');
+    if (error) throw error;
+    return data;
+  }
 }

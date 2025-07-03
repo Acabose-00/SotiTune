@@ -1,0 +1,51 @@
+.icon-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Ahora sí, aquí funciona el espacio */
+  }
+  
+  .center-buttons {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+  }
+  
+  
+  
+  .center-title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  
+  }
+  
+  .contenedor-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%; /* ocupa toda la altura disponible */
+  }
+  
+  .fila-contenedor {
+    display: grid;
+    grid-template-columns: 100px 120px 80px; /* ajusta si quieres otros anchos */
+    gap: 10px 20px;
+    text-align: center;
+  }
+  
+  ion-icon {
+    font-size: 24px;
+    color: white; /* o el color que quieras */
+  }
+  
+  .icon-text-wrapper {
+    display: flex;
+    flex-direction: column; /* NUEVO: icono arriba, texto abajo */
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .icon-text-wrapper img {
+    width: 64px;
+    height: 64px;
+  }

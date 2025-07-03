@@ -1,24 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header translucent="true">
   <ion-toolbar>
-<ion-buttons slot="start">
-  <ion-button (click)="goToInstruments()">
-    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-  </ion-button>
-    <ion-button (click)="goToSubirPartitura()">
-    <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-  </ion-button>
-</ion-buttons>
-    <ion-title class="ion-text-center"> Partituras </ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="goToInstruments()">
+        <ion-label>&lt;</ion-label>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Partituras</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="goToSubirPartitura()">
+        <ion-label>+</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let partitura of partituras" button (click)="verPartitura(partitura)">
+      {{ partitura.titulo || 'sin nombre' }}
+    </ion-item>
+  </ion-list>
 
-
-<ng-container *ngIf="sesionActiva; else invitadoFooter">
-  <app-footer-user></app-footer-user>
-</ng-container>
-<ng-template #invitadoFooter>
-  <app-footer></app-footer>
-</ng-template>
+  <ng-container *ngIf="sesionActiva; else invitadoFooter">
+    <app-footer-user></app-footer-user>
+  </ng-container>
+  <ng-template #invitadoFooter>
+    <app-footer></app-footer>
+  </ng-template>
 </ion-content>
