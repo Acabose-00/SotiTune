@@ -33,6 +33,10 @@ export const routes: Routes = [
     path: 'subir-partitura',
     loadComponent: () => import('./subir-partitura/subir-partitura.page').then( m => m.SubirPartituraPage)
   },
+  {
+    path: 'ver-partitura',
+    loadComponent: () => import('./ver-partitura/ver-partitura.page').then( m => m.VerPartituraPage)
+  },
 
 
 
