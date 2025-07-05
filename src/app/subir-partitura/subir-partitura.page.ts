@@ -69,37 +69,38 @@ export class SubirPartituraPage {
     }
 
     const fecha_creacion = new Date().toISOString();
-    const archivoBuffer = await this.archivoSeleccionado.arrayBuffer();
-    const nombreArchivo = this.archivoSeleccionado.name.toLowerCase();
+    const archivo = this.archivoSeleccionado;
+    const nombreArchivo = archivo.name.toLowerCase();
 
-    let partitura_pdf = null;
-    let partitura_xml = null;
+    let partitura_pdf: ArrayBuffer | null = null;
+    let partitura_mxl: Uint8Array | null = null;
 
     if (nombreArchivo.endsWith('.pdf')) {
-      partitura_pdf = archivoBuffer;
-    } else if (nombreArchivo.endsWith('.xml')) {
-      partitura_xml = new TextDecoder().decode(archivoBuffer);
+      partitura_pdf = await archivo.arrayBuffer();
+    } else if (nombreArchivo.endsWith('.mxl')) {
+      const arrayBuffer = await archivo.arrayBuffer();
+      partitura_mxl = new Uint8Array(arrayBuffer);
     } else {
-      alert('Solo se permiten archivos PDF o XML.');
-      return;
+      alert('Solo puede subir PDF o MXL')
     }
 
     const { error } = await this.supabaseService.supabase
       .from('partituras')
       .insert({
         titulo,
+        instrumento,
         genero_musical: genero,
         usuario_id,
-        fecha_creación: fecha_creacion,
+        fecha_creacion,
         likes: false,
         partitura_pdf,
-        partitura_xml
+        partitura_mxl,
       });
 
     if (error) {
       console.error('Error al subir:', error);
-      alert('Ocurrió un error al subir la partitura.');
-      return;
+    } else {
+      console.log('Subido con éxito');
     }
 
     alert('🎵 ¡Partitura subida con éxito!');
