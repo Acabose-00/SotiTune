@@ -32,6 +32,14 @@ export class RegisterPage {
       return;
     }
 
+    // Validación de formato de correo
+  const correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!correoValido.test(this.correo)) {
+    this.errorMessage = 'Ingresa un correo válido';
+    return;
+}
+
+
     try {
       const { data: existingUser, error: userError } = await this.supabaseService.getUserByEmail(this.correo);
       if (userError) throw userError;
