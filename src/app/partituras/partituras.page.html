@@ -1,20 +1,21 @@
 <ion-header translucent="true">
   <ion-toolbar>
+    <!-- Botón tipo back -->
     <ion-buttons slot="start">
-      <ion-button color="primary" (click)="goToInstruments()">
-        <ion-label>&lt;</ion-label>
-      </ion-button>
+      <ion-back-button defaultHref="/menu-instrumentos" color="primary"></ion-back-button>
     </ion-buttons>
 
     <ion-title>Partituras</ion-title>
 
+    <!-- Botón con icono "add" -->
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="goToSubirPartitura()">
-        <ion-label>+</ion-label>
+        <ion-icon name="add" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <ion-list>

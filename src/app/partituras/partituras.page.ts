@@ -7,6 +7,8 @@ import { FooterUserComponent } from '../plantillas/footer-user/footer-user.compo
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupabaseService } from '../services/supabase.service';
+import { addIcons } from 'ionicons';
+import { chevronBack, add } from 'ionicons/icons';
 
 @Component({
   selector: 'app-partituras',
@@ -31,7 +33,12 @@ export class PartiturasPage implements OnInit {
     private router: Router,
     private auth: AuthService,
     private supabaseService: SupabaseService,
-  ) {}
+  ) {
+    addIcons({
+      'chevron-back': chevronBack,
+      'add': add
+    });
+}
 
   async ngOnInit() {
     this.sesionActiva = this.auth.isLogged();
