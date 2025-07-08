@@ -27,15 +27,15 @@ export class MenuInstrumentosPage implements OnInit {
       happyOutline,heartOutline,keyOutline,personCircle,
       list,create,ellipsisHorizontal,ellipsisVertical,
       helpCircle,search,star,speedometer,mic});
-    this.sesionActiva = this.auth.isLogged();
+    this.sesionActiva = this.auth.getLoggedUser();
   }
 
   ngOnInit() {
-    this.sesionActiva = this.auth.isLogged();
+    this.sesionActiva = this.auth.getLoggedUser();
   }
 
   ionViewWillEnter() {
-  this.sesionActiva = this.auth.isLogged();
+  this.sesionActiva = this.auth.getLoggedUser();
 }
 
   goToLogin() {

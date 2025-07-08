@@ -92,7 +92,6 @@ export class SubirPartituraPage {
         genero_musical: genero,
         usuario_id,
         fecha_creacion,
-        likes: false,
         partitura_pdf,
         partitura_mxl,
       });
