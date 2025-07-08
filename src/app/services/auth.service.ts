@@ -19,10 +19,6 @@ export class AuthService {
     this.sesionActiva = true;
   }
 
-  isLogged(): boolean {
-    return sessionStorage.getItem('sesion') !== null;
-  }
-
   getLoggedUser(): any | null {
   const session = sessionStorage.getItem('sesion');
   return session ? JSON.parse(session) : null;

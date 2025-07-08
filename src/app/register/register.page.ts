@@ -58,8 +58,8 @@ export class RegisterPage {
       if (perfil.error) throw perfil.error;
 
 
-      const isLogged = await this.supabaseService.login(this.correo, this.contra);
-      if (isLogged) {
+      const getLoggedUser = await this.supabaseService.login(this.correo, this.contra);
+      if (getLoggedUser) {
         this.router.navigate(['/menu-instrumentos'], { replaceUrl: true });
       } else {
         throw new Error('No se pudo iniciar sesión automáticamente');

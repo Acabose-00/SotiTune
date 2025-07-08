@@ -24,7 +24,7 @@ import { chevronBack, add } from 'ionicons/icons';
   ]
 })
 export class PartiturasPage implements OnInit {
-  sesionActiva: boolean = false;
+  sesionActiva: any = null;
   selectedInstrument: string = 'bajo';
   partituras: any[] = [];
 
@@ -41,16 +41,16 @@ export class PartiturasPage implements OnInit {
 }
 
   async ngOnInit() {
-    this.sesionActiva = this.auth.isLogged();
-  
+    this.sesionActiva = this.auth.getLoggedUser();
+
     this.route.queryParams.subscribe(params => {
       if (params['instrumento']) {
         this.selectedInstrument = params['instrumento'];
       }
     });
-  
+
     try {
-      this.partituras = await this.supabaseService.getPartituras();
+      this.partituras = await this.supabaseService.getPartituras(this.sesionActiva.id);
     } catch (error) {
       console.error('Error al obtener partituras:', error);
     }
@@ -65,11 +65,31 @@ export class PartiturasPage implements OnInit {
   }
 
   verPartitura(partitura: any) {
+    console.log("TA LUEGO")
     this.router.navigate(['/ver-partitura'], {
       queryParams: {
         url: partitura.archivo_url,
         tipo: partitura.tipo
       }
     });
+  }
+
+  async gestionarFavorito(event: Event, partitura: any) {
+    event.stopPropagation();
+
+    const liked = await this.supabaseService.gestionarFavoritos(partitura.id, this.sesionActiva.id);
+    console.log(liked);
+    if (liked) {
+      if (!partitura.canciones_favoritas.includes(partitura.id)) {
+        partitura.canciones_favoritas.push(partitura.id);
+      }
+      partitura.num_valoraciones += 1;
+    } else {
+      const index = partitura.canciones_favoritas.indexOf(partitura.id);
+      if (index !== -1) {
+        partitura.canciones_favoritas.splice(index, 1);
+      }
+      partitura.num_valoraciones = Math.max(0, partitura.num_valoraciones - 1);
+    }
   }
 }

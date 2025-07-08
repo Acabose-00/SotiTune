@@ -34,11 +34,11 @@ export class MedidorAfinacionPage implements OnInit {
     private router: Router,
     private auth: AuthService
   ) {
-    this.sesionActiva = this.auth.isLogged();
+    this.sesionActiva = this.auth.getLoggedUser();
   }
 
   ngOnInit() {
-    this.sesionActiva = this.auth.isLogged();
+    this.sesionActiva = this.auth.getLoggedUser();
     this.route.queryParams.subscribe(params => {
       if (params['instrumento']) {
         this.selectedInstrument = params['instrumento'];

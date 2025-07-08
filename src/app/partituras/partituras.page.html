@@ -16,26 +16,24 @@
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let partitura of partituras" button (click)="verPartitura(partitura)">
-      <ion-label>
-        <h2>{{ partitura.titulo || 'Sin nombre' }}</h2>
-        <p>Instrumento: {{ partitura.instrumento }}</p>
-        <p>Género: {{ partitura.genero_musical }}</p>
+<div id="lista">
+  <ion-item [attr.data-id]="partitura.id" *ngFor="let partitura of partituras">
+      <ion-label button (click)="verPartitura(partitura.id)">
+        <h2>{{partitura.titulo}}</h2>
+        <p>Instrumento: {{partitura.instrumento}}</p>
+        <p>Género: {{partitura.genero_musical}}</p>
+        <p>Likes: {{partitura.num_valoraciones}}</p>
       </ion-label>
 
-      <!-- Icono de like (estrella) a la derecha -->
-      <ion-icon 
-        slot="end" 
+      <ion-icon button (click)="gestionarFavorito($event, partitura)"
         name="star" 
-        [style.color]="partitura.likes ? 'gold' : 'gray'" 
+        [style.color]="partitura.canciones_favoritas.includes(partitura.id) ? 'gold' : 'gray'" 
         size="large">
       </ion-icon>
     </ion-item>
-  </ion-list>
+</div>
 
+<ion-content>
   <ng-container *ngIf="sesionActiva; else invitadoFooter">
     <app-footer-user></app-footer-user>
   </ng-container>
