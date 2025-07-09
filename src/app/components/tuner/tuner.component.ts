@@ -101,7 +101,7 @@ export class TunerComponent implements OnInit, OnDestroy, OnChanges {
       this.lastDetectionTime = now;
       this.signalLost = false;
     } else {
-      // Si pasan más de 3 segundos sin detectar nada, muestra Sin señal
+
       if (now - this.lastDetectionTime > 3000) {
         this.signalLost = true;
       }

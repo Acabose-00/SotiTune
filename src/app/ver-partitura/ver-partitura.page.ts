@@ -32,27 +32,40 @@ export class VerPartituraPage {
     return bytes;
   }
 
-  async ngOnInit() {
-    const id = +this.route.snapshot.queryParamMap.get('id')!;
-    if (!id) {
-      console.error('ID inválido');
-      return;
-    }
-
-    const { data, error } = await this.supabaseService.supabase
-      .from('partituras')
-      .select('partitura_pdf')
-      .eq('id', id)
-      .single();
-
-    if (error || !data || !data.partitura_pdf) {
-      console.error('Error al obtener o no hay PDF en esta partitura:', error);
-      return;
-    }
-
-    const byteArray = this.convertirHexAUint8Array(data.partitura_pdf);
-    const blob = new Blob([byteArray], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+async ngOnInit() {
+  const id = +this.route.snapshot.queryParamMap.get('id')!;
+  if (!id) {
+    console.error('ID inválido');
+    return;
   }
+
+  // 1. Obtener archivo_url desde Supabase
+  const { data, error } = await this.supabaseService.supabase
+    .from('partituras')
+    .select('archivo_url')
+    .eq('id', id)
+    .single();
+
+  if (error || !data?.archivo_url) {
+    console.error('Error al obtener archivo_url:', error);
+    return;
+  }
+
+  const fullPath = data.archivo_url; // Ej: 'partituras/1_1752097881241.pdf'
+  const fileName = fullPath.replace('partituras/', '');
+
+  // 2. Obtener URL firmada
+  const { data: signed, error: signedError } = await this.supabaseService.supabase
+    .storage
+    .from('partituras')
+    .createSignedUrl(fileName, 3600); // 1 hora
+
+  if (signedError || !signed?.signedUrl) {
+    console.error('Error al generar URL firmada:', signedError);
+    return;
+  }
+
+  // 3. Mostrar PDF
+  this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(signed.signedUrl);
+}
 }

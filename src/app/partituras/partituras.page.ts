@@ -7,8 +7,9 @@ import { FooterUserComponent } from '../plantillas/footer-user/footer-user.compo
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupabaseService } from '../services/supabase.service';
+
 import { addIcons } from 'ionicons';
-import { chevronBack, add } from 'ionicons/icons';
+import { chevronBack, add, star } from 'ionicons/icons';
 
 @Component({
   selector: 'app-partituras',
@@ -37,6 +38,7 @@ export class PartiturasPage implements OnInit {
     addIcons({
       'chevron-back': chevronBack,
       'add': add
+    , 'star': star
     });
 }
 

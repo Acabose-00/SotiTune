@@ -1,0 +1,15 @@
+ion-title {
+  align-items: center;
+    text-align: center;
+}
+
+ion-content,
+div,
+iframe {
+  height: 100%;
+}
+
+iframe {
+  width: 100%;
+  border: none;
+}
