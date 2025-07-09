@@ -68,8 +68,7 @@ export class PartiturasPage implements OnInit {
     console.log("TA LUEGO")
     this.router.navigate(['/ver-partitura'], {
       queryParams: {
-        url: partitura.archivo_url,
-        tipo: partitura.tipo
+        id: partitura.id
       }
     });
   }

@@ -29,7 +29,7 @@ import {
     IonLabel,
     IonInput,
     IonButton,
-    ReactiveFormsModule // necesario para usar formularios reactivos
+    ReactiveFormsModule
   ]
 })
 export class SubirPartituraPage {
@@ -43,11 +43,14 @@ export class SubirPartituraPage {
   ) {
     this.formulario = this.fb.group({
       titulo: ['', Validators.required],
-      instrumento: ['', Validators.required], // aún no se guarda en BD
+      instrumento: ['', Validators.required],
       genero: ['', Validators.required],
     });
   }
 
+
+
+  
   onFileSelected(event: any) {
     this.archivoSeleccionado = event.target.files[0];
   }
@@ -67,46 +70,88 @@ export class SubirPartituraPage {
       alert('No se encontró el usuario actual.');
       return;
     }
-
+    
     const fecha_creacion = new Date().toISOString();
     const archivo = this.archivoSeleccionado;
     const nombreArchivo = archivo.name.toLowerCase();
 
-    let partitura_pdf: ArrayBuffer | null = null;
-    let partitura_mxl: Uint8Array | null = null;
+    const arrayBuffer = await archivo.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+
+    let insertData: any = {
+      titulo,
+      instrumento,
+      genero_musical: genero,
+      usuario_id,
+      fecha_creacion,
+    };
 
     if (nombreArchivo.endsWith('.pdf')) {
-      partitura_pdf = await archivo.arrayBuffer();
+      insertData.partitura_pdf = uint8Array; // GUARDAR bytes directos sin stringify
+      insertData.partitura_mxl = null;
     } else if (nombreArchivo.endsWith('.mxl')) {
-      const arrayBuffer = await archivo.arrayBuffer();
-      partitura_mxl = new Uint8Array(arrayBuffer);
+      insertData.partitura_pdf = null;
+      insertData.partitura_mxl = uint8Array; // GUARDAR bytes directos sin stringify
     } else {
-      alert('Solo puede subir PDF o MXL')
+      alert('Solo puede subir archivos PDF o MXL.');
+      return;
     }
 
     const { error } = await this.supabaseService.supabase
       .from('partituras')
-      .insert({
-        titulo,
-        instrumento,
-        genero_musical: genero,
-        usuario_id,
-        fecha_creacion,
-        partitura_pdf,
-        partitura_mxl,
-      });
+      .insert(insertData);
 
     if (error) {
       console.error('Error al subir:', error);
+      alert('Error al subir partitura.');
     } else {
-      console.log('Subido con éxito');
+      alert('¡Partitura subida con éxito!');
+      this.router.navigate(['/partituras']);
     }
-
-    alert('🎵 ¡Partitura subida con éxito!');
-    this.router.navigate(['/partituras']);
   }
 
   goToInstruments() {
-    this.router.navigate(['/menu-instrumentos'], {replaceUrl:true});
+    this.router.navigate(['/menu-instrumentos'], { replaceUrl: true });
   }
+
+  onFileSelected1(event: any) {
+  const archivo: File = event.target.files[0];
+  if (!archivo || !archivo.name.endsWith('.pdf')) {
+    alert('Debes seleccionar un archivo PDF válido.');
+    return;
+  }
+
+  const lector = new FileReader();
+  lector.onload = async () => {
+    const buffer = lector.result as ArrayBuffer;
+    const pdfBytes = new Uint8Array(buffer);
+
+    const usuario = this.supabaseService.getUsuarioActual();
+    const usuario_id = usuario?.id;
+    const fecha_creacion = new Date().toISOString();
+
+    const data = {
+      titulo: 'Partitura PDF Directa',
+      instrumento: 'Desconocido',
+      genero_musical: 'Sin clasificar',
+      usuario_id,
+      fecha_creacion,
+      partitura_pdf: pdfBytes,
+      partitura_mxl: null
+    };
+
+    const { error } = await this.supabaseService.supabase
+      .from('partituras')
+      .insert(data);
+
+    if (error) {
+      console.error('Error al subir PDF:', error);
+      alert('Ocurrió un error al subir el PDF');
+    } else {
+      alert('PDF subido correctamente como intento alternativo');
+    }
+  };
+
+  lector.readAsArrayBuffer(archivo);
+}
 }

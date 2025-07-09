@@ -18,7 +18,7 @@
 
 <div id="lista">
   <ion-item [attr.data-id]="partitura.id" *ngFor="let partitura of partituras">
-      <ion-label button (click)="verPartitura(partitura.id)">
+    <ion-label button (click)="verPartitura(partitura)">
         <h2>{{partitura.titulo}}</h2>
         <p>Instrumento: {{partitura.instrumento}}</p>
         <p>Género: {{partitura.genero_musical}}</p>

@@ -10,6 +10,16 @@ export class SupabaseService {
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseAnonKey);
+    function hexToUint8Array(hex: string): Uint8Array {
+      if (hex.startsWith('\\x')) {
+        hex = hex.slice(2);
+      }
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < hex.length; i += 2) {
+        bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+      }
+  return bytes;
+}
   }
 
   // Crear nuevo usuario en tabla personalizada
@@ -53,7 +63,7 @@ export class SupabaseService {
   // Cerrar sesión
   async logout(): Promise<void> {
     try {
-      await this.supabase.auth.signOut(); // Aunque no estés usando auth, lo dejas por si lo activas más adelante
+      await this.supabase.auth.signOut();
       sessionStorage.removeItem('sesion');
     } catch (error) {
       throw error;
@@ -126,4 +136,22 @@ export class SupabaseService {
     }
   }
 
+  
+
+  async getPartituraById(id: number) {
+    const { data, error } = await this.supabase
+      .from('partituras')
+      .select('id, partitura_pdf, partitura_mxl')
+      .eq('id', id)
+      .single();
+  
+    if (error) {
+      console.error('Error al obtener partitura por ID:', error);
+      return null;
+    }
+  
+    return data;
+  }
+  
+  
 }

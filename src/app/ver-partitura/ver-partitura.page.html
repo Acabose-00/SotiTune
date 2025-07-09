@@ -1,23 +1,15 @@
-<ion-header [translucent]="true">
+<ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>ver-partitura</ion-title>
+    <ion-title>Visualizar Partitura</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Visualizar Partitura</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ng-container *ngIf="tipo === 'pdf'">
-      <iframe [src]="url | safeUrl" width="100%" height="100%"></iframe>
-    </ng-container>
-  
-    <ng-container *ngIf="tipo === 'xml'">
-      <iframe [src]="url | safeUrl" width="100%" height="100%"></iframe>
-    </ng-container>
-  </ion-content>
+<ion-content>
+  <div *ngIf="pdfSrc; else loading">
+    <iframe [src]="pdfSrc" width="100%" height="100%" frameborder="0"></iframe>
+  </div>
+  <ng-template #loading>
+    <ion-spinner></ion-spinner>
+    <p>Cargando PDF...</p>
+  </ng-template>
 </ion-content>
