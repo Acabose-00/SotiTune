@@ -2,27 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTab, IonTabBar, IonTabs, IonTabButton } from '@ionic/angular/standalone';
-import { create, ellipsisHorizontal, ellipsisVertical, helpCircle, personCircle, search, star, speedometer, mic, list, musicalNoteOutline, flashOutline, trendingUpOutline, happyOutline, heartOutline, keyOutline } from 'ionicons/icons';
+import { IonTabButton, IonTabBar, IonTabs, IonIcon } from '@ionic/angular/standalone';
 import { SupabaseService } from 'src/app/services/supabase.service';
+import { personCircle } from 'ionicons/icons';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  imports: [IonTabButton, IonTab, IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, CommonModule, FormsModule,
-    IonButton, IonButton, IonButtons, IonIcon, IonMenuButton, IonLabel, IonSegment, IonSegmentButton, IonTabBar, IonTabs],
+  imports: [
+    CommonModule,
+    IonTabBar,
+    IonTabs,
+    IonTabButton,
+    IonIcon
+  ],
   standalone: true,
 })
-export class FooterComponent  implements OnInit {
+export class FooterComponent implements OnInit {
 
-  constructor(private router: Router, private supabase: SupabaseService) { 
-  console.log("FOOTER")
-  addIcons({musicalNoteOutline,flashOutline,trendingUpOutline,happyOutline,heartOutline,keyOutline,personCircle,list,create,ellipsisHorizontal,ellipsisVertical,helpCircle,search,star,speedometer,mic});
-}
+  constructor(private router: Router, private supabase: SupabaseService) {
+    console.log("FOOTER");
+    addIcons({ personCircle });
+  }
 
   ngOnInit() {}
+
   goToLogin() {
     this.router.navigate(['/home']);
   }

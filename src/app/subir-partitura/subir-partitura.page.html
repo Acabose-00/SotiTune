@@ -22,9 +22,6 @@
         <ion-input formControlName="instrumento" type="text" placeholder="Ingrese el instrumento"></ion-input>
       </ion-item>
 
-
-      <input type="file" accept="application/pdf" (change)="onFileSelected1($event)">
-
       <ion-label class="input-label">Género musical</ion-label>
       <ion-item lines="none" class="input-item">
         <ion-input formControlName="genero" type="text" placeholder="Ingrese el género"></ion-input>
@@ -34,9 +31,6 @@
       <ion-item lines="none" class="input-item file-input-item">
         <input type="file" (change)="onFileSelected($event)" accept=".pdf,.mxl" class="custom-file">
       </ion-item>
-
-      <input type="file" accept="application/pdf" (change)="onFileSelected1($event)">
-
 
       <div class="button-container">
         <ion-button expand="full" shape="round" class="btn-sesion" type="submit" [disabled]="!formulario.valid || !archivoSeleccionado">

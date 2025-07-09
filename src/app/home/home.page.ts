@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonList, IonText } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonInput, IonItem, IonLabel, IonText } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -10,7 +10,7 @@ import { SupabaseService } from 'src/app/services/supabase.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonLabel, IonList, IonText, FormsModule],
+  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonLabel, IonText, FormsModule],
 })
 export class HomePage {
   correo: string = '';
@@ -35,7 +35,7 @@ export class HomePage {
       this.errorMessage = '';
       const loginCorrecto = await this.supabase.login(this.correo, this.contrasena);
       if (loginCorrecto) {
-        console.log("AQUI SI ESTAMOS")
+
         this.router.navigate(['menu-instrumentos'], {replaceUrl:true});
       } else  { 
         this.errorMessage = 'Usuario o contraseña incorrectos'
