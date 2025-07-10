@@ -1,43 +1,128 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, Platform } from '@ionic/angular';
 import { instrumentTunings, StringTuning } from '../data/frecuencia-instrumentos';
-import { Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 
 @Component({
   selector: 'app-tuner',
   templateUrl: './tuner.component.html',
   styleUrls: ['./tuner.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule]
+  imports: [CommonModule, IonicModule],
+  providers: [AndroidPermissions]
 })
 export class TunerComponent implements OnInit, OnDestroy, OnChanges {
-  // variables de aguja medidor
-  needleAngle: number = 0;
-  signalLost: boolean = false;
-  private lastDetectionTime: number = Date.now();
-  // Variables para el microfono
+  needleAngle = 0;
+  signalLost = false;
+  private lastDetectionTime = Date.now();
+
   audioContext!: AudioContext;
   analyser!: AnalyserNode;
   dataArray!: Float32Array;
   mediaStreamSource!: MediaStreamAudioSourceNode;
   rafId!: number;
 
-  frequency: number = 0;
-  currentNote: string = '';
-  targetFrequency: number = 0;
-  isMicrophoneActive: boolean = false;
+  frequency = 0;
+  currentNote = '';
+  targetFrequency = 0;
+  isMicrophoneActive = false;
 
-  // Variables para la afinacion segun instrumento
   @Input() selectedInstrument: string = 'bajo';
   currentTuning: StringTuning[] = instrumentTunings['bajo'];
 
-  constructor() {}
+  constructor(
+    private androidPermissions: AndroidPermissions,
+    private platform: Platform
+  ) {}
+
+  ngOnInit() {
+    this.platform.ready().then(() => {
+      if (this.platform.is('android')) {
+        this.requestAudioPermission();
+      } else {
+        this.initAudio(); // navegador o iOS
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.stopAudio();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedInstrument']) {
       this.currentTuning = instrumentTunings[this.selectedInstrument] || [];
     }
+  }
+
+  requestAudioPermission() {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.RECORD_AUDIO).then(
+      result => {
+        if (!result.hasPermission) {
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.RECORD_AUDIO).then(() => {
+            this.initAudio();
+          });
+        } else {
+          this.initAudio();
+        }
+      },
+      err => {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.RECORD_AUDIO).then(() => {
+          this.initAudio();
+        });
+      }
+    );
+  }
+
+  async initAudio() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
+
+      this.analyser = this.audioContext.createAnalyser();
+      this.analyser.fftSize = 2048;
+
+      this.dataArray = new Float32Array(this.analyser.fftSize);
+      this.mediaStreamSource.connect(this.analyser);
+
+      this.isMicrophoneActive = true;
+      this.updateFrequency();
+    } catch (err) {
+      console.error('Error accediendo al micrófono', err);
+      this.isMicrophoneActive = false;
+    }
+  }
+
+  updateFrequency() {
+    this.analyser.getFloatTimeDomainData(this.dataArray);
+    this.frequency = this.autoCorrelate(this.dataArray, this.audioContext.sampleRate) || 0;
+    const now = Date.now();
+
+    if (this.frequency > 0) {
+      this.currentNote = this.detectClosestNote(this.frequency);
+      this.targetFrequency = this.currentTuning.find(t => t.note === this.currentNote)?.frequency || 0;
+
+      const diff = this.frequency - this.targetFrequency;
+      this.needleAngle = Math.max(Math.min(diff * 5, 45), -45);
+      this.lastDetectionTime = now;
+      this.signalLost = false;
+    } else {
+      if (now - this.lastDetectionTime > 3000) {
+        this.signalLost = true;
+      }
+      this.needleAngle = 0;
+    }
+
+    this.rafId = requestAnimationFrame(() => this.updateFrequency());
+  }
+
+  stopAudio() {
+    if (this.audioContext) {
+      this.audioContext.close();
+    }
+    cancelAnimationFrame(this.rafId);
   }
 
   detectClosestNote(frequency: number): string {
@@ -57,65 +142,6 @@ export class TunerComponent implements OnInit, OnDestroy, OnChanges {
 
   isInTune(): boolean {
     return Math.abs(this.frequency - this.targetFrequency) < 2;
-  }
-
-  ngOnInit() {
-    this.initAudio();
-  }
-
-  ngOnDestroy() {
-    this.stopAudio();
-  }
-
-  async initAudio() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
-
-      this.analyser = this.audioContext.createAnalyser();
-      this.analyser.fftSize = 2048;
-
-      this.dataArray = new Float32Array(this.analyser.fftSize);
-      this.mediaStreamSource.connect(this.analyser);
-
-      this.isMicrophoneActive = true;
-      this.updateFrequency();
-
-    } catch (err) {
-      console.error('Error accediendo al micrófono', err);
-      this.isMicrophoneActive = false;
-    }
-  }
-
-  updateFrequency() {
-    this.analyser.getFloatTimeDomainData(this.dataArray);
-    this.frequency = this.autoCorrelate(this.dataArray, this.audioContext.sampleRate) || 0;
-    const now = Date.now();
-    if (this.frequency > 0) {
-      this.currentNote = this.detectClosestNote(this.frequency);
-      this.targetFrequency = this.currentTuning.find(t => t.note === this.currentNote)?.frequency || 0;
-      // logica para la aguja
-      const diff = this.frequency - this.targetFrequency;
-      this.needleAngle = Math.max(Math.min(diff * 5, 45), -45);
-      this.lastDetectionTime = now;
-      this.signalLost = false;
-    } else {
-
-      if (now - this.lastDetectionTime > 3000) {
-        this.signalLost = true;
-      }
-      this.needleAngle = 0; // Regresa aguja al centro
-    }
-
-    this.rafId = requestAnimationFrame(() => this.updateFrequency());
-  }
-
-  stopAudio() {
-    if (this.audioContext) {
-      this.audioContext.close();
-    }
-    cancelAnimationFrame(this.rafId);
   }
 
   autoCorrelate(buffer: Float32Array, sampleRate: number): number | null {
@@ -143,7 +169,7 @@ export class TunerComponent implements OnInit, OnDestroy, OnChanges {
     const c = new Array(SIZE).fill(0);
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE - i; j++) {
-        c[i] = c[i] + buffer[j] * buffer[j + i];
+        c[i] += buffer[j] * buffer[j + i];
       }
     }
 
@@ -156,8 +182,8 @@ export class TunerComponent implements OnInit, OnDestroy, OnChanges {
         maxpos = i;
       }
     }
-    let T0 = maxpos;
 
+    let T0 = maxpos;
     if (T0 == 0) return null;
 
     return sampleRate / T0;
