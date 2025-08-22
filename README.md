@@ -1,3 +1,9 @@
+<h2>Vista previa de la app</h2>
+
+<video src="/gifs/Registro-de-usurio.mp4" width="600" autoplay loop muted></video>
+
+<video src="gifs/Ver-partituras.mp4" width="600" autoplay loop muted></video>
+
 # 🎵 SotiTune — Afinador y Gestor de Partituras (Ionic + Angular)
 
 Aplicación móvil híbrida (Ionic + Capacitor) para Android que permite:
